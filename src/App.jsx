@@ -6,7 +6,7 @@ import {FindOppurtunities,Companies,CompanyProfile,UploadOppurtunity,Oppurtunity
 
 function Layout()
 {
-  
+
 }
 
 function App() {
