@@ -84,7 +84,7 @@ const Navbar = () => {
           } container mx-auto lg:hidden pr-8 gap-3 py-5 flex-col items-end`}
         >
           <Link to='/' onClick={handleCloseNavbar}>
-            Find Job
+            Find Oppurtunity
           </Link>
           <Link to='/companies' onClick={handleCloseNavbar}>
             Companies
@@ -92,10 +92,10 @@ const Navbar = () => {
           <Link
             onClick={handleCloseNavbar}
             to={
-              user?.accountType === "seeker" ? "applly-gistory" : "upload-job"
+              user?.accountType === "seeker" ? "applly-gistory" : "upload-oppurtunity"
             }
           >
-            {user?.accountType === "seeker" ? "Applications" : "Upload Job"}
+            {user?.accountType === "seeker" ? "Applications" : "Upload Opurtunity"}
           </Link>
           <Link to='/about-us' onClick={handleCloseNavbar}>
             About
