@@ -44,7 +44,7 @@ const Navbar = () => {
           </Link>
         </li>
       </ul>
-      <div className="hidden lg:block">
+      <div className="lg:block">
         {
           !user?.token?(
             <>
@@ -64,11 +64,13 @@ const Navbar = () => {
           )
         }
       </div>
+
       
        <button
             className='block lg:hidden text-slate-900'
             onClick={() => setIsOpen((prev) => !prev)}
           >
+
             {isOpen ? <AiOutlineClose size={26} /> : <HiMenuAlt3 size={26} />}
           </button>
 
@@ -99,7 +101,7 @@ const Navbar = () => {
             About
           </Link>
 
-          <div className='w-full py-10'>
+          {/*<div className='w-full py-10'>
             {!user?.token ? (
                <>
               <div className='flex flex-col items-end gap-3'>
@@ -132,7 +134,7 @@ const Navbar = () => {
                 <MenuList user={user} onClick={handleCloseNavbar} />
               </div>
             )}
-          </div>
+          </div>*/}
         </div>
  
     </div>

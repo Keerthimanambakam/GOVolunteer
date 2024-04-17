@@ -17,7 +17,7 @@ const MenuList = ({user,onClick}) => {
         <Menu as="div" className="inline-block text-left">
             <div className='flex'>
               <Menu.Button className="inline-flex gap-2 w-full rounded-md bg-dutch_white md:px-4 py-2 text-sm font-medium text-burnt_seinna hover:bg-opacity-20">
-                <div className="leading[80px] flex flex-col items-start">
+                <div className="hidden lg:leading[80px] lg:flex flex-col items-end">
                     <p className="text-sm font-semibold">
                         {user?.firstName ?? user?.name}
                     </p>
@@ -32,7 +32,7 @@ const MenuList = ({user,onClick}) => {
                 <BiChevronDown
               className='h-8 w-8 text-slate-600'
               aria-hidden='true'
-            />
+                />
 
               </Menu.Button>
             </div>
@@ -56,7 +56,7 @@ const MenuList = ({user,onClick}) => {
                       user?.accountType ? "user-profile" : "company-profile"
                     }`}
                     className={`${
-                      active ? "bg-burnt_seinna-500 text-white" : "text-gray-900"
+                      active ? "bg-blue-500 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md p-2 text-sm`}
                     onClick={onClick}
                   >
