@@ -34,7 +34,7 @@ const Footer = () => {
   
       </div>
 
-      <div className='w-full md:w-2/4 lg:w-1/3 h-16 flex items-center justify-center md:justify-start '>
+      <div className='w-full h-16 flex items-center justify-center md:justify-start '>
 
         <span className='inline-flex lg:ml-auto lg:mt-0 mt-6 w-full justify-center'>
 

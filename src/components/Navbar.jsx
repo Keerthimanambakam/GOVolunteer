@@ -7,8 +7,8 @@ import { users } from '../utils/data';
 import { MdOutlineVolunteerActivism } from "react-icons/md";
 
 const Navbar = () => {
-  //const user={}
-  const user=users[0];
+  const user={}
+  //const user=users[0];
   const [isOpen,setIsOpen]=useState(false);
   //console.log(user);
   const handleCloseNavbar=()=>{
@@ -53,7 +53,7 @@ const Navbar = () => {
               containerStyles="text-black-400 py-1.5 px-5 focus:outline-none hover:text-burnt_seinaa"/>
             </Link>
              <Link to='/user-auth'>
-              <CustomButton title="Sign In"
+              <CustomButton title="Sign Up"
               containerStyles="text-burnt_seinna py-1.5 px-5 focus:outline-none hover:bg-persian_orange hover:text-white rounded-full text-base border border-white-300"/>
             </Link>
             </>
