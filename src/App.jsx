@@ -3,9 +3,18 @@ import {Outlet,Navigate,Route,Routes,useLocation} from 'react-router-dom';
 import {Footer, Navbar} from "./components";
 
 import {FindOppurtunities,Companies,CompanyProfile,UploadOppurtunity,OppurtunityDetail,UserProfile,About,AuthPage} from "./pages";
+import { useSelector } from 'react-redux';
 
 function Layout()
 {
+   const {user}= useSelector((state)=>state.user);
+   const location=useLocation();
+
+   return user?.token ? (
+    <Outlet />
+  ) : (
+    <Navigate to='/user-auth' state={{ from: location }} replace />
+  );
 
 }
 
