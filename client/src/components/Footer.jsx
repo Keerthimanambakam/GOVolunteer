@@ -6,9 +6,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="text-white bg-orange-300 relative z-50 mt-20">
-
-      <div className='-mb-0.5 bg-orange-300 px-5 py-20 mx-auto'>
+    <footer className="relative bottom-0  text-white bg-orange-300  z-50">
+      <div className='-mb-0.5 bg-orange-300 px-20 py-20 mx-auto max-w-full'>
 
         <div className='w-full flex flex-wrap gap-10 justify-between -mb-10 -px-4'>
             {footerLinks.map(({ id, title, links }) => (
@@ -53,9 +52,8 @@ const Footer = () => {
           </a>
         </span>
 
-      </div>
-
-      <div className='bg-paynes_gray container flex flex-wrap flex-col sm:flex-row px-5 py-3 mb-0 max-w-full'>
+ </div>
+      {/* <div className='bg-paynes_gray container flex flex-wrap flex-col sm:flex-row px-5 py-3  max-w-full'>
         <p className='text-gray-300 text-sm text-center sm:text-left'>
               &copy; 2024 GOVolunteer —
               <a
@@ -69,9 +67,7 @@ const Footer = () => {
           </p>
             
       </div>
-
-      
-
+       */}
     </footer>
   );
 }

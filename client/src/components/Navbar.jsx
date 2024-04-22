@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <>
-    <div className='relative bg-platinum z-50'>
+    <div className='sticky top-0 bg-platinum z-50'>
       <nav className="container mx-auto flex items-center justify-between p-5">
         <div className="inline-flex gap-3 items-center" >
            <MdOutlineVolunteerActivism className='h-10 w-10 text-slate-600' aria-hidden='true' />

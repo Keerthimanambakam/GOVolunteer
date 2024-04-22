@@ -23,7 +23,8 @@ function App() {
   //const {user}=useSelector((state)=>state.user);
 
   return(
-    <main>
+    <div>
+    <main className='relative'>
       <Navbar/>
 
       <Routes>
@@ -52,9 +53,9 @@ function App() {
 
       </Routes>
 
-      {user && <Footer/>}
     </main>
-    
+      {user && <Footer/>}
+      </div>
   )
 }
 
