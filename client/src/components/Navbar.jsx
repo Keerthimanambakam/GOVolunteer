@@ -48,7 +48,7 @@ const Navbar = () => {
         {
           !user?.token?(
             <>
-            <Link to='/user-auth'>
+            <Link to='/user-login'>
               <CustomButton title="Log In"
               containerStyles="text-black-400 py-1.5 px-5 focus:outline-none hover:text-burnt_seinaa"/>
             </Link>
@@ -101,40 +101,7 @@ const Navbar = () => {
             About
           </Link>
 
-          {/*<div className='w-full py-10'>
-            {!user?.token ? (
-               <>
-              <div className='flex flex-col items-end gap-3'>
-
-                <div>
-                  <a href='/user-auth'>
-                <CustomButton
-                  title='Sign In'
-                  containerStyles={`text-blue-600 py-1.5 px-5 focus:outline-none hover:bg-blue-700 hover:text-white rounded-full text-base border border-blue-600`}
-                />
-                  </a>
-                </div>
-
-                <div>
-                <a href='/user-auth'>
-                <CustomButton title="Log In"
-                containerStyles={`text-black-400 py-1.5 px-5 focus:outline-none hover:text-burnt_seinaa`}
-                />
         
-                </a>
-                </div>
-               
-                
-              </div>
-              
-              
-            </>
-            ) : (
-              <div>
-                <MenuList user={user} onClick={handleCloseNavbar} />
-              </div>
-            )}
-          </div>*/}
         </div>
  
     </div>

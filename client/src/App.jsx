@@ -1,4 +1,5 @@
 import {Outlet,Navigate,Route,Routes,useLocation} from 'react-router-dom';
+import React,{useState} from 'react';
 
 import {Footer, Navbar} from "./components";
 
@@ -12,15 +13,17 @@ function Layout()
 
    return user?.token ? (
     <Outlet />
-  ) : (
-    <Navigate to='/user-auth' state={{ from: location }} replace />
+  ) : (""
+    //<Navigate to='/user-auth' state={{ from: location }} replace />
   );
 
 }
 
 function App() {
-  const user={};
-  //const {user}=useSelector((state)=>state.user);
+  //const user={};
+  const {user}=useSelector((state)=>state.user);
+  const [isRegister,setIsRegister]=useState(true);
+  const [isLogin,setIsLogin]=useState(false);
 
   return(
     <div>
@@ -49,7 +52,9 @@ function App() {
         </Route>
 
         <Route path='/about-us' element={<About />}/>
-        <Route path='/user-auth' element={<AuthPage />}/>
+        <Route path='/user-auth' element={<AuthPage isRegister={isRegister} setIsRegister={setIsRegister} />}/>
+         <Route path='/user-login' element={<AuthPage isRegister={isLogin} setIsRegister={setIsLogin}/>}/>
+        
 
       </Routes>
 
