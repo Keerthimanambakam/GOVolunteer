@@ -28,7 +28,7 @@ const Navbar = () => {
 
       <ul className="hidden lg:flex gap-10 text-base">
         <li>
-          <Link to='/'>Find Oppurtunity
+          <Link to='/find-oppurtunities'>Find Oppurtunity
           </Link>
         </li>
         <li>

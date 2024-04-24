@@ -50,7 +50,8 @@ const SignUp = ({open,setOpen,isRegister,setIsRegister}) => {
               </button>
               </Link>
 
-             <h3 className='text-xl font-semibold text-gray-900'>                    {isRegister ? "Create Account" : "Account Sign In"}
+             <h3 className='text-xl font-semibold text-gray-900'>                   
+              {isRegister ? "Create Account" : "Account Sign In"}
              </h3>
              <div className='w-full flex items-center justify-center py-4 px-1'>
                     <button
