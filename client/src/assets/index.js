@@ -11,6 +11,9 @@ import Office from "./office.jpg";
 import JobImg from "./job.jpg";
 import Facebook from "./facebook.png";
 import CodeWave from "./codewave.png";
+import Taehyungaesthetic from "./taehyunginparis.png";
+import flowers from "./flowers.jpg"
+import tae from "./taetae.jpeg"
 
 export {
   CodeWave,
@@ -26,4 +29,7 @@ export {
   Youtube,
   Office,
   JobImg,
+  flowers,
+  tae,
+  Taehyungaesthetic
 };
