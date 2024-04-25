@@ -11,7 +11,8 @@ export default {
         'columbia_blue':'#C0D6DF',
         'alice_blue':'#D5E0E5',
         'light_alice_blue':'#E0E5E8',
-        'ash_gray':'#9CA496'
+        'ash_gray':'#9CA496',
+        'white_smoke':'#F3F3F3',
       }},
   },
   plugins: [],

@@ -5,12 +5,14 @@ import {Link} from "react-router-dom"
 import {CustomButton,MenuList} from "../components"
 import { users } from '../utils/data';
 import { MdOutlineVolunteerActivism } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const user={}
+  //const user={}
   //const user=users[0];
+  const user = useSelector((state) => state.user).user;
   const [isOpen,setIsOpen]=useState(false);
-  //console.log(user);
+  console.log(user);
   const handleCloseNavbar=()=>{
     setIsOpen((prev)=>!prev);
   };
