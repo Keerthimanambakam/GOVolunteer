@@ -27,6 +27,7 @@ app.use(morgan("dev"));
 
 app.use(router);
 
+
 app.post('/',(req,res)=>{
     console.log("huuhu");
     res.send("hey hey")

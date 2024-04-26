@@ -7,7 +7,7 @@ const router = express.Router();
 
 const path = "/api/";
 
-router.use(path+"auth", authRoute); 
+router.use(`${path}auth`, authRoute); 
 
 
 export default router;
