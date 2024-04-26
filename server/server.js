@@ -27,9 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
 
-app.get('/',(req,res)=>{
-    res.send("asdfghjk");
-});
+
 
 app.post('/',(req,res)=>{
     res.send("hello from govolunteer!!");

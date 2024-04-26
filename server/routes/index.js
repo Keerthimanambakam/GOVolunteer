@@ -5,7 +5,7 @@ import jobRoute from "./jobroute.js";// Assuming you have a file named jobRoute.
 const router = express.Router();
 const path = "/api/";
 
-router.use(path + "auth", authRoute);
-router.use(path + "jobs", jobRoute); // Mounting the job routes
+router.use(path+"auth", authRoute); 
+
 
 export default router;
