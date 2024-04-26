@@ -7,18 +7,16 @@ export const register = async (req, res, next) => {
     next("Name is required");
   }
   if (!email) {
-    next("Email is required");
+    next("email is required");
   }
   if (!password) {
-    next("Password is required");
+    next("password is required");
   }
-
   if (!number) {
-    next("Password is required");
+    next("Number is required");
   }
-
   if (!dob) {
-    next("Password is required");
+    next("dob is required");
   }
 
   try {
@@ -78,9 +76,9 @@ export const signIn = async (req, res, next) => {
     }
 
     
-    const conformPassword = await user.comparePassword(password);
+    const confirmPassword = await user.comparePassword(password);
 
-    if (!conformPassword) {
+    if (!confirmPassword) {
       next("Invalid password");
       return;
     }
