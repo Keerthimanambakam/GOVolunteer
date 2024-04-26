@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+<<<<<<< HEAD
 const jobCardSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -59,3 +60,49 @@ const jobCardSchema = new mongoose.Schema({
 const JobCard = mongoose.model('JobCard', jobCardSchema);
 
 module.exports = JobCard;
+=======
+
+const jobSchema = new mongoose.Schema({
+    userId: {
+      type: String,
+      ref: 'User',
+      required: true
+    },
+    jobTitle: {
+      type: String,
+      required: true
+    },
+    jobType: {
+      type: String,
+      enum: ['Full-time', 'Part-time', 'Contract', 'Freelance'],
+      required: true
+    },
+    salaryUSD: {
+      type: Number,
+      default:0
+    },
+    vacancies: {
+      type: Number,
+      default:0
+    },
+    yearsOfExperience: {
+      type: Number,
+      default:0
+    },
+    workLocation: {
+      type: String,
+      required: true
+    },
+    workDescription: {
+      type: String,
+      required: true
+    }
+  }, {
+    timestamps: true
+  });
+  
+
+const JobCard = mongoose.model('JobCard', jobSchema);
+
+export default JobCard;
+>>>>>>> b9e5b0a4f244adc51b07bb6efeb19d46de0d84ef

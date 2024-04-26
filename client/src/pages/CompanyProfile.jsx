@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import { Card } from '../UI/Card'
 const CompanyProfile = () => {
   return (
@@ -21,6 +22,12 @@ const CompanyProfile = () => {
         </ul>
       </div>
     </div>
+=======
+
+const CompanyProfile = () => {
+  return (
+    <div>CompanyProfile</div>
+>>>>>>> b9e5b0a4f244adc51b07bb6efeb19d46de0d84ef
   )
 }
 
