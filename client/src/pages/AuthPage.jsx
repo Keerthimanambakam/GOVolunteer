@@ -17,14 +17,6 @@ const AuthPage = ({isRegister,setIsRegister}) => {
   }
   return (
     <>
-    {/*<div className='w-full relative overflow-x-clip'>
-
-       <div className="absolute hidden sm:flex sm:z-100">
-        <div className="bg-paynes_gray w-[150vh] h-[150vh] absolute left-[65vw] -top-[24vh] rotate-[30deg]  rounded-[30vh]">
-        </div>
-       </div>
-
-    </div>*/}
 
     <div className='w-full'> 
       <SignUp open={open} setOpen={setOpen} isRegister={isRegister} setIsRegister={setIsRegister}/>

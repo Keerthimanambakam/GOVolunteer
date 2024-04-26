@@ -52,7 +52,7 @@ export const register = async (req, res, next) => {
       token,
     });
   } catch (error) {
-    console.log(error);
+    console.log("error",error);
     res.status(404).json({ message: error.message });
   }
 };
