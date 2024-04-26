@@ -1,6 +1,8 @@
 import express from "express";
+
 import authRoute from "./authRoutes.js";
 import jobRoute from "./jobroute.js";
+
 import userRoute from "./userRoutes.js"
 import companyRoute from "./companyRoute.js"
 

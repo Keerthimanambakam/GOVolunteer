@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-
 const jobSchema = new mongoose.Schema({
     userId: {
       type: String,
@@ -43,3 +42,4 @@ const jobSchema = new mongoose.Schema({
 const JobCard = mongoose.model('JobCard', jobSchema);
 
 export default JobCard;
+

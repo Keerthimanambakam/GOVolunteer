@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import React,{Fragment,useEffect,useState} from 'react'
+=======
 import React,{Fragment,useState} from 'react'
+>>>>>>> 4a0f3082c605446168e8e32dd0933022f71a9b01
 import {HiMenuAlt3} from "react-icons/hi"
 import {AiOutlineClose,AiOutlineLogout} from "react-icons/ai"
 import {Link} from "react-router-dom"
@@ -8,6 +12,15 @@ import { MdOutlineVolunteerActivism } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
+<<<<<<< HEAD
+  const user = useSelector((state) => state.user).user;
+  //const user={}
+  //const user=users[0];
+  const [isOpen,setIsOpen]=useState(false);
+  const handleCloseNavbar=()=>{
+    setIsOpen((prev)=>!prev);
+  };
+=======
   //const user={}
   //const user=users[0];
   const user = useSelector((state) => state.user).user;
@@ -17,6 +30,7 @@ const Navbar = () => {
     setIsOpen((prev)=>!prev);
   };
 
+>>>>>>> 4a0f3082c605446168e8e32dd0933022f71a9b01
   return (
     <>
     <div className='sticky top-0 bg-platinum z-50'>
