@@ -3,8 +3,20 @@ import Users from "../models/userModel.js";
 export const register = async (req, res, next) => {
   const { name, email, password ,number,dob} = req.body;
 
-  if (!name || !email || !password || !number || !dob) {
-    return res.status(400).json({ message: "All fields are required" });
+  if (!name) {
+    next("Name is required");
+  }
+  if (!email) {
+    next("email is required");
+  }
+  if (!password) {
+    next("password is required");
+  }
+  if (!number) {
+    next("Number is required");
+  }
+  if (!dob) {
+    next("dob is required");
   }
 
   try {
@@ -64,9 +76,9 @@ export const signIn = async (req, res, next) => {
     }
 
     
-    const conformPassword = await user.comparePassword(password);
+    const confirmPassword = await user.comparePassword(password);
 
-    if (!conformPassword) {
+    if (!confirmPassword) {
       next("Invalid password");
       return;
     }
