@@ -8,6 +8,8 @@ import Logo from "../assets/volunteer.png"
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import {Input,CustomButton} from './index';
+import { apiRequest } from '../utils';
+import { Login } from '../redux/userSlice';
 
 const SignUp = ({open,setOpen,isRegister,setIsRegister}) => {
   const dispatch=useDispatch();
@@ -32,12 +34,67 @@ const SignUp = ({open,setOpen,isRegister,setIsRegister}) => {
     mode: "onChange",
   });
 
- const onSubmit = () => {};
+ const onSubmit = async(data) => {
+  console.log(data)
+  let URL=null;
+
+  if(isRegister)
+  {
+    if(accountType==="volunteer")
+    {
+      URL="auth/register";
+    }
+    else{
+      URL="companies/register";
+    }
+  }
+  else{
+
+    if(accountType==="volunteer")
+    {
+      URL="auth/login";
+    }
+    else{
+      URL="companies/login";
+    }
+
+  }
+  
+  try{
+   const res= await apiRequest({
+    url:URL,
+    data:data,
+    method:"POST",
+   });
+
+   console.log("HEYY",res);
+
+   if(res.status=="failed")
+   {
+    //console.log("heyeyy")
+     setErrMsg(res?.message);
+   }
+   else{
+    setErrMsg("");
+    const data={token:res?.token,...res?.user};
+    dispatch(Login(data));
+    localStorage.setItem("userInfo",JSON.stringify(data));
+    
+    console.log(data);
+   }
+
+  }catch(e){
+    //console.log("yoyo")
+     console.log(e)
+  }
+
+
+ };
 
 
   return(
     <>
-    <div className="fixed inset-0 bg-paynes_gray backdrop-blur-sm flex items-center justify-center gap-3">
+    <div className="fixed inset-0 bg-paynes_gray backdrop-blur-sm flex items-center justify-center gap-3 z-20">
     <Transition appear show={open || false}>
     <motion.div  initial={{opacity:0,y:30}}
             animate={{opacity:1,y:0}}
