@@ -82,8 +82,8 @@ const Navbar = () => {
     {/*MOBILE MENU*/}
     <div
           className={`${
-            isOpen ? "absolute flex bg-[#f7fdfd] " : "hidden"
-          } container mx-auto lg:hidden pr-8 gap-3 py-5 flex-col items-end`}
+            isOpen ? "absolute flex bg-slate-200 " : "hidden"
+          } container w-fit left-[65vw] mx-auto lg:hidden pr-8 gap-3 py-5 flex-col items-end rounded border shadow-md`}
         >
           <Link to='/' onClick={handleCloseNavbar}>
             Find Oppurtunity
