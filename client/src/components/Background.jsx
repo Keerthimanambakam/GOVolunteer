@@ -33,6 +33,7 @@ const Search= ({ placeholder, icon, value, setValue, styles }) => {
 };
 
 const Background = ({type,
+  title,
   handleClick,
   searchQuery,
   setSearchQuery,
@@ -48,7 +49,7 @@ const Background = ({type,
             
             <div className='mb-20 sm:mb-0 flex flex-col items-center sm:flex-row sm:justify-between relative z-10'> 
                <div>
-                 <p className='text-paynes_gray font-bold text-4xl md:text-5xl pt-32 sm:pt-2 mb-8 sm:mb-8'>When humanity meets the technology</p>
+                 <p className='text-paynes_gray font-bold text-4xl md:text-5xl pt-32 sm:pt-2 mb-8 sm:mb-8'>{title}</p>
                 </div>
                 <div className="z-20 pl-[20vw] sm:relative sm:pt-16">
                  

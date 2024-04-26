@@ -55,7 +55,7 @@ const FindOppurtunities = () => {
 
      </div>
 
-    <Background type='home'  handleClick={() => {}} searchQuery={searchQuery}
+    <Background type='home' title='When Humanity meets Technology'  handleClick={() => {}} searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         location={jobLocation}
         setLocation={setJobLocation}/>

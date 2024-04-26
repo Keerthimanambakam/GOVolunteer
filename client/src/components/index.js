@@ -7,5 +7,6 @@ import Input from "./Input";
 import Background from "./Background";
 import List from "./List";
 import JobCard from "./JobCard";
+import CompanyCard from "./CompanyCard";
 
-export {Footer,Navbar,CustomButton,MenuList,SignUp,Input,Background,List,JobCard}
+export {Footer,Navbar,CustomButton,MenuList,SignUp,Input,Background,List,JobCard,CompanyCard}
