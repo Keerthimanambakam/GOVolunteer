@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
@@ -305,21 +304,4 @@ const CompanyProfile = () => {
         </ul>
       </div>
     </div>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  );
-
-=======
-=======
-
-const CompanyProfile = () => {
-  return (
-    <div>CompanyProfile</div>
->>>>>>> b9e5b0a4f244adc51b07bb6efeb19d46de0d84ef
->>>>>>> dc7783114bd63a9f12ec6b2fe00709e181a05a9a
-  )
->>>>>>> 4a0f3082c605446168e8e32dd0933022f71a9b01
-}
-
-export default CompanyProfile*/
+*/

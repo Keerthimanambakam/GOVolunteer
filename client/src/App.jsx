@@ -35,12 +35,9 @@ function App() {
           <Route path='/find-oppurtunities' element={<FindOppurtunities />}/>
           <Route path='/companies' element={<Companies />}/>
           
-          <Route
-            path={
-              user?.user?.accountType==='volunteer'?"/user-profile":"/user-profile/:id"
-            }
-            element={<UserProfile/>}
-          />
+          <Route path='/user-profile' element={<UserProfile />}/>
+          <Route path='/user-profile/:id' element={<UserProfile />}/>
+          
           <Route path='/company-profile' element={<CompanyProfile />}/>
           <Route path='/company-profile/:id' element={<CompanyProfile />}/>
           <Route path='/upload-oppurtunity' element={<UploadOppurtunity />}/>
