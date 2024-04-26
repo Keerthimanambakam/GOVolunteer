@@ -1,61 +1,45 @@
 import mongoose from "mongoose"
-const jobCardSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  Recruiter: {
-    type: String,
-  },
-  location: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  requirements: [String],
-  postedAt: {
-    type: Date,
-    default: Date.now
-  },
-  ageCategory: {
-    type: String,
-    enum: ['Under 18', '18-25', '26-35', '36-45', '46-55', '56-65', 'Over 65','Any'],
-    required: true
-  },
-  isPaid: {
-    type: Boolean,
-    default: false
-  },
-  timeCommitment: {
-    hoursPerWeek: {
-      type: Number,
-      min: 1,
+
+const jobSchema = new mongoose.Schema({
+    userId: {
+      type: String,
+      ref: 'User',
       required: true
     },
-    daysPerWeek: {
+    jobTitle: {
+      type: String,
+      required: true
+    },
+    jobType: {
+      type: String,
+      enum: ['Full-time', 'Part-time', 'Contract', 'Freelance'],
+      required: true
+    },
+    salaryUSD: {
       type: Number,
-      min: 1,
-      max: 7,
+      default:0
+    },
+    vacancies: {
+      type: Number,
+      default:0
+    },
+    yearsOfExperience: {
+      type: Number,
+      default:0
+    },
+    workLocation: {
+      type: String,
+      required: true
+    },
+    workDescription: {
+      type: String,
       required: true
     }
-  },
-  durationDays: {
-    type: Number,
-    min: 1, // Minimum duration in days
-    required: true
-  },
-  applicationDeadline: {
-    type: Date,
-  }
-  
+  }, {
+    timestamps: true
+  });
   
 
- 
-})
+const JobCard = mongoose.model('JobCard', jobSchema);
 
-const JobCard = mongoose.model('JobCard', jobCardSchema);
-
-module.exports = JobCard;
+export default JobCard;
