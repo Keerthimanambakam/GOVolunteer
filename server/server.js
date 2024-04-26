@@ -31,9 +31,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 
+<<<<<<< HEAD
 app.get('/',(req,res)=>{
     res.send("asdfghjk");
 });
+=======
+>>>>>>> f2311a472c039aa891209fbcd566aa65d1b48518
 
 app.post('/',(req,res)=>{
     res.send("hello from govolunteer!!");
