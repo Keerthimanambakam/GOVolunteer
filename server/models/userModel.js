@@ -47,8 +47,8 @@ userSchema.pre('save',async function(){
 })
 
 userSchema.methods.comparePassword=async function(userPassword){
-    const conformPassword=await bcrypt.compare(userPassword,this.password);
-    return conformPassword;
+    const confirmPassword=await bcrypt.compare(userPassword,this.password);
+    return confirmPassword;
 }
 
 userSchema.methods.createJWT = function () {
