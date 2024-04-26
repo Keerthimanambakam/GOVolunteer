@@ -1,7 +1,7 @@
 import Users from "../models/userModel.js";
 import ErrorResponse from "../utils/errorResponse.js";
 
-// Get user
+
 export const getUser = async (req, res, next) => {
     try {
         const user = await Users.findById(req.params.id);
@@ -19,7 +19,7 @@ export const getUser = async (req, res, next) => {
     }
 };
 
-// Update user
+
 export const updateUser = async (req, res, next) => {
     try {
         let user = await Users.findById(req.params.id);
