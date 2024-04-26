@@ -11,7 +11,7 @@ router.get('/:id', jobController.showJob);
 
 router.post('/', jobController.createJob);
 
-router.put('/:id', jobController.updateJob);
+router.patch('/:id', jobController.updateJob);
 
 router.delete('/:id', jobController.deleteJob);
 

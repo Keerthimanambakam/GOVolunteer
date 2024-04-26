@@ -26,7 +26,7 @@ const showJob = async (req, res) => {
 // Controller function to create a new job
 const createJob = async (req, res) => {
   const job = new Job({
-    userId: req.body.userId,
+    companyId: req.body.companyIdId,
     jobTitle: req.body.jobTitle,
     jobType: req.body.jobType,
     salaryUSD: req.body.salaryUSD,
@@ -53,7 +53,7 @@ const updateJob = async (req, res) => {
       return res.status(404).json({ message: 'Job not found' });
     }
 
-    job.userId = req.body.userId;
+    job.companyId = req.body.companyId;
     job.jobTitle = req.body.jobTitle;
     job.jobType = req.body.jobType;
     job.salaryUSD = req.body.salaryUSD;
