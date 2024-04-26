@@ -3,6 +3,7 @@ import {Menu,Transition} from "@headlessui/react";
 import { BiChevronDown } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineLogout } from "react-icons/ai";
+<<<<<<< HEAD
 import {Link, useNavigate} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { Logout } from '../redux/userSlice';
@@ -13,6 +14,16 @@ const MenuList = ({user,onClick}) => {
     dispatch(Logout());   
     navigate("/find-oppurtunities");
    }
+=======
+import {Link} from "react-router-dom"
+
+const MenuList = ({user,onClick}) => {
+ 
+ const handleLogOut=()=>{
+
+ }
+ //console.log('gioih')
+>>>>>>> 4a0f3082c605446168e8e32dd0933022f71a9b01
 
   return (
     <div>
@@ -75,7 +86,11 @@ const MenuList = ({user,onClick}) => {
                 <Menu.Item>
                 {({ active }) => (
                   <button
+<<<<<<< HEAD
                     onClick={handleLogOut}
+=======
+                    onClick={() => handleLogout()}
+>>>>>>> 4a0f3082c605446168e8e32dd0933022f71a9b01
                     className={`${
                       active ? "bg-blue-500 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

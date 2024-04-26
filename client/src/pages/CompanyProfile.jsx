@@ -1,4 +1,8 @@
 import React from 'react'
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 4a0f3082c605446168e8e32dd0933022f71a9b01
 import { Card } from '../UI/Card'
 const CompanyProfile = () => {
   return (
@@ -21,8 +25,18 @@ const CompanyProfile = () => {
         </ul>
       </div>
     </div>
+<<<<<<< HEAD
   );
 
+=======
+=======
+
+const CompanyProfile = () => {
+  return (
+    <div>CompanyProfile</div>
+>>>>>>> b9e5b0a4f244adc51b07bb6efeb19d46de0d84ef
+  )
+>>>>>>> 4a0f3082c605446168e8e32dd0933022f71a9b01
 }
 
 export default CompanyProfile
