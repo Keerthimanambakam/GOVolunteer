@@ -37,6 +37,8 @@ export const register = async (req, res, next) => {
     });
 
     const token = await user.createJWT();
+    
+    console.log(req.body)
 
     res.status(201).send({
       success: true,

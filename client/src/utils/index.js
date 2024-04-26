@@ -11,7 +11,7 @@ export const apiRequest=async({url,token,data,method})=>{
    try{
       //console.log("hiii",data)
        const response=await API(url,{
-        methods:method || "GET",
+        method:method || "GET",
         data:data,
         headers:{
             "content-Type":"application/json",

@@ -79,7 +79,7 @@ const SignUp = ({open,setOpen,isRegister,setIsRegister}) => {
     const data={token:res?.token,...res?.user};
     dispatch(Login(data));
     localStorage.setItem("userInfo",JSON.stringify(data));
-    
+    window.location.replace(from);
     console.log(data);
    }
 
