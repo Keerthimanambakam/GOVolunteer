@@ -34,6 +34,7 @@ function App() {
           />
           <Route path='/find-oppurtunities' element={<FindOppurtunities />}/>
           <Route path='/companies' element={<Companies />}/>
+          
           <Route
             path={
               user?.user?.accountType==='volunteer'?"/user-profile":"/user-profile/:id"
