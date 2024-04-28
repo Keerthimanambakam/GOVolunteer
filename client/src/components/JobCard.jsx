@@ -4,21 +4,24 @@ import { GoLocation } from "react-icons/go";
 import moment from "moment";
 
 const JobCard = ({job}) => {
+  console.log(job)
   return (
+      
      <Link to={`/oppurtunity-detail/${job?.id}`}>
 
         <div className='w-full md:w-[16rem] 2xl:w-[18rem] h-[16rem] md:h-[18rem] mt-6 bg-columbia_blue flex flex-col border border-paynes_gray justify-between shadow-lg rounded-md px-3 py-5 hover:transition-all hover:mt-2 hover:shadow-2xl'
         >
-            <div className='flex gap-3'>
-
+          <div className='w-full h-full flex flex-col justify-between'>
+              <div className='flex gap-3'>
+                
                <img
-                src={job?.company?.profileUrl}
-                alt={job?.company?.name}
+                src={job?.logo}
+                alt={job?.name}
                 className='w-14 h-14'
               />
 
-               <div>
-                    <p className='text-lg font-semibold truncate'>{job?.jobTitle}</p>
+               <div className='w-full h-16 flex flex-col justify-center'>
+                    <p className='w-full h-12 flex items-center text-lg font-semibold truncate overflow leading-5'>{job?.jobTitle}</p>
 
                     <span className='flex gap-2 items-center'>
                     <GoLocation className='text-slate-900 text-sm' />
@@ -30,7 +33,7 @@ const JobCard = ({job}) => {
 
             <div className='py-3'>
                 <p className='text-sm'>
-                    {job?.detail[0]?.desc?.slice(0, 150) + "..."}
+                    {job?.desc?.slice(0, 150) + "..."}
                 </p>
             </div>
 
@@ -45,6 +48,7 @@ const JobCard = ({job}) => {
                 </span>
 
            </div>
+          </div>
 
 
         </div>

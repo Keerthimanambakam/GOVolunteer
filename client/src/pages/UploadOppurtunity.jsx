@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { CustomButton, JobCard, Input,JobTypes } from "../components";
-import { jobs } from "../utils/data";
+import { CustomButton, JobCard, Input,JobTypes, Loading } from "../components";
+import { experience, jobs } from "../utils/data";
+import { useSelector } from "react-redux";
+import { apiRequest } from "../utils";
 
 
 
 const UploadOppurtunity = () => {
-  
+  const {user}=useSelector((state)=>state.user)
+
    const {
     register,handleSubmit,getValues,watch,formState:{errors}}=useForm({
       mode:"onChange",
@@ -15,8 +18,60 @@ const UploadOppurtunity = () => {
   
   const [errMsg,setErrMsg]=useState("");
   const [jobTitle,setJobTitle]=useState("");
+  const [jobType,setJobType]=useState("Full-Time");
+  const [isLoading,setIsLoading]=useState(false);
+  const [recentPost,setRecentPost]=useState([]);
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    setErrMsg(null);
+    const newData={...data,jobType:jobType};
+
+     try{
+        const res=await apiRequest({
+          url:"/jobs/upload-job",
+          token:user?.token,
+          data:newData,
+          method:"POST",
+        })
+        console.log("job upload failed")
+        if(res.status=="failed")
+        {
+          setErrMsg({...res});
+        }
+        else{
+          setErrMsg("success");
+          setTimeout(()=>{
+            window.location.reload();
+          },1500);
+        }
+
+    }catch(e){
+      console.log(e);
+      setIsLoading(false);
+    }
+
+
+  };
+
+  const getRecentPost=async()=>{
+    try{
+      const id=user?._id;
+      const res=await apiRequest({
+        url:"/company/get-company/"+id,
+        method:"GET",
+      })
+       console.log("kukuku",res.data)
+      setRecentPost(res?.data.jobPosts);
+      
+    }catch(error){
+        console.log(error)
+      }
+  }
+   
+  useEffect(()=>{
+    {getRecentPost()}
+  },[])
 
   return (
     <div className='w-full bg-paynes_gray'>
@@ -48,7 +103,7 @@ const UploadOppurtunity = () => {
                 
               <div className={`w-1/2 mt-2`}>
                 <label className='text-gray-600 text-sm mb-1'>Job Type</label>
-                <JobTypes jobTitle={jobTitle} setJobTitle={setJobTitle} />
+                <JobTypes jobTitle={jobType} setJobTitle={setJobType} />
               </div>
 
               <div className='w-1/2'>
@@ -138,11 +193,15 @@ const UploadOppurtunity = () => {
             )}
             
             <div className='mt-2'>
-              <CustomButton
+              {isLoading?(<Loading/>):
+              (
+                 <CustomButton
                 type='submit'
                 containerStyles='inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-8 py-2 text-sm font-medium text-white hover:bg-[#1d4fd846] hover:text-[#1d4fd8] focus:outline-none '
                 title='Sumbit'
-              />
+                 />
+              )}
+              
             </div>
 
 
@@ -156,9 +215,18 @@ const UploadOppurtunity = () => {
 
         <p className='text-gray-900 font-semibold'>Recent Job Post</p>
 
-        <div className='w-full flex flex-wrap gap-6'>
-          {jobs.slice(0, 3).map((job, index) => {
-            return <JobCard job={job} key={index} />;
+       <div className='w-full flex flex-wrap gap-6'>
+          {console.log("reeeecent",recentPost)}
+          {recentPost?.slice(0, 3).map((job, index) => {
+            console.log("jooob",job)
+            const data={
+              name:user?.name,
+              email:user?.email,
+              logo:user?.profileUrl,
+              ...job
+            }
+            console.log("daaata",data)
+            return <JobCard job={data} key={index} />;
           })}
         </div>
 

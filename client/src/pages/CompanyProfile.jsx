@@ -10,6 +10,9 @@ import { companies, jobs } from "../utils/data";
 import { CustomButton, JobCard, Loading, Input } from "../components";
 import { IoMdClose } from "react-icons/io";
 import { motion } from "framer-motion";
+import { handleFileUpload } from "../utils";
+import { apiRequest } from "../utils";
+import { Login } from "../redux/userSlice";
 
 
 /*const CompanyForm=({open,seOpen})=>{
@@ -27,14 +30,53 @@ const CompanyForm = ({ open, setOpen }) => {
     formState: { errors },
   } = useForm({
     mode: "onChange",
-    defaultValues: { ...user?.user },
+    defaultValues: { ...user},
   });
 
   const dispatch = useDispatch();
   const [profileImage, setProfileImage] = useState("");
   const [uploadCv, setUploadCv] = useState("");
+  const [isLoading,setIsLoading]=useState(false);
+  const [errMsg,setErrMsg]=useState("")
 
-  const onSubmit = () => {};
+  const onSubmit = async(data) => {
+    setIsLoading(true);
+    setErrMsg(null)
+
+    const uri=profileImage && (await handleFileUpload(profileImage));
+
+    const newData=uri?{...data,profileUrl:uri}:data;
+    {console.log("finalllll",newData)}
+
+    try{
+        const res=await apiRequest({
+          url:"/company/update-company",
+          token:user?.token,
+          data:newData,
+          method:"PUT",
+        })
+
+        setIsLoading(false);
+        if(res.status=="failed")
+        {
+          setErrMsg({...res});
+        }
+        else{
+          setErrMsg("success");
+          dispatch(Login(data));
+          localStorage.setItem("userInfo",JSON.stringify(newData));
+          
+          setTimeout(()=>{
+            window.location.reload();
+          },1500);
+        }
+
+    }catch(e){
+      console.log(e);
+      setIsLoading(false);
+    }
+
+  };
 
   let from=location.state?.from?.pathname||"/";
 
@@ -95,14 +137,14 @@ const CompanyForm = ({ open, setOpen }) => {
 
                       <div className='w-1/2'>
                         <Input
-                          name='contact'
-                          label='Contact'
+                          name='number'
+                          label='number'
                           placeholder='Phone Number'
                           type='text'
-                          register={register("contact", {
-                            required: "Contact is required!",
+                          register={register("number", {
+                            required: "Number is required!",
                           })}
-                          error={errors.contact ? errors.contact?.message : ""}
+                          error={errors.number ? errors.number?.message : ""}
                         />
                       </div>
 
@@ -144,11 +186,16 @@ const CompanyForm = ({ open, setOpen }) => {
                     </div>
 
                     <div className='mt-4'>
-                      <CustomButton
+                      {
+                        isLoading?(
+                          <Loading/>
+                        ):(<CustomButton
                         type='submit'
                         containerStyles='inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-8 py-2 text-sm font-medium text-white hover:bg-[#1d4fd846] hover:text-[#1d4fd8] focus:outline-none '
                         title={"Submit"}
                       />
+                      )}
+                      
                     </div>
 
                 </form>
@@ -174,12 +221,38 @@ const CompanyProfile = () => {
   const params = useParams();
   const location=useLocation();
   const { user } = useSelector((state) => state.user);
-  const [info, setInfo] = useState(null);
+  const [info, setInfo] = useState(user);
   const [isLoading, setIsLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
 
+  const fetchCompany=async()=>{
+    setIsLoading(true);
+    let id=null;
+
+    if(params.id&&params.id!==undefined)
+    {
+      id=params?.id;
+    }
+    else{
+      id=user?._id;
+    }
+
+   try{
+      const res=await apiRequest({
+        url:"/company/get-company/"+id,
+        method:"GET",
+      });
+      console.log("eifeqf",res.data)
+      setInfo(res?.data);
+      setIsLoading(false);
+
+    }catch(e){
+      console.log(e);
+    }
+  }
+
   useEffect(() => {
-    setInfo(companies[parseInt(params?.id) - 1 ?? 0]);
+    fetchCompany();
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
   
@@ -194,13 +267,14 @@ const CompanyProfile = () => {
         <div>
 
           <div className='w-full flex flex-col md:flex-row gap-3 justify-between'>
-
+             {console.log("heyyy",info)}
             <h2 className='text-gray-600 text-xl font-semibold'>
               WELCOME {info?.name}
             </h2>
-
-            {user?.user?.accountType === undefined &&
-              info?._id === user?.user?._id && (
+             
+             {console.log("huu",user?._id)}
+            {user?.accountType === undefined &&
+              info?._id === user?._id && (
                 <div className='flex items-center justifu-center py-5 md:py-0 gap-4'>
                   
                   <CustomButton
@@ -210,7 +284,7 @@ const CompanyProfile = () => {
                     containerStyles={`py-1.5 px-3 md:px-5 focus:outline-none bg-blue-600  hover:bg-blue-700 text-white rounded text-sm md:text-base border border-blue-600`}
                   />
 
-                  <Link to='/upload-job'>
+                  <Link to='/upload-oppurtunity'>
                     <CustomButton
                       title='Upload Job'
                       iconRight={<FiUpload />}
@@ -231,7 +305,7 @@ const CompanyProfile = () => {
               <AiOutlineMail /> {info?.email ?? "No Email"}
             </p>
             <p className='flex gap-1 items-center   px-3 py-1 text-slate-600 rounded-full'>
-              <FiPhoneCall /> {info?.contact ?? "No Contact"}
+              <FiPhoneCall /> {info?.number ?? "No Number"}
             </p>
 
           </div>
@@ -245,10 +319,11 @@ const CompanyProfile = () => {
           <p>Jobs Posted</p>
 
           <div className='flex flex-wrap gap-3'>
-            {jobs?.map((job, index) => {
+            {info?.jobPosts?.map((job, index) => {
               const data = {
                 name: info?.name,
                 email: info?.email,
+                logo:info?.profileUrl,
                 ...job,
               };
               return <JobCard job={data} key={index} />;
@@ -267,41 +342,3 @@ const CompanyProfile = () => {
 
 export default CompanyProfile;
 
-
-
-
-
-
-
-/*import React from 'react'
-=======
-import React from 'react'
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 4a0f3082c605446168e8e32dd0933022f71a9b01
->>>>>>> dc7783114bd63a9f12ec6b2fe00709e181a05a9a
-import { Card } from '../UI/Card'
-
-const CompanyProfile = () => {
-  return (
-    <div className='flex items-center justify-center flex-col '>
-      <h5 className='mt-4 font-sans font-bold text-xl text-center '>Job Status</h5>
-      <div className='flex items-center justify-start mt-6'>
-        <ul>
-          <Card name="Full Stack developer" date="2023-12-12" Number="13"/>
-          <li>
-            <Card name="Senior Software Developer" date="2023-12-12" Number="15"/>
-          </li>
-          <li>
-            
-          <Card name="Systems administator" date="2023-13-13" Number="17"/>
-          </li>
-          <li>
-            <Card name="Hardware engineer" date="2027-12-11" Number="19"/>
-          </li>
-      
-        </ul>
-      </div>
-    </div>
-*/

@@ -45,7 +45,7 @@ const SignUp = ({open,setOpen,isRegister,setIsRegister}) => {
       URL="auth/register";
     }
     else{
-      URL="companies/register";
+      URL="company/register";
     }
   }
   else{
@@ -55,7 +55,7 @@ const SignUp = ({open,setOpen,isRegister,setIsRegister}) => {
       URL="auth/login";
     }
     else{
-      URL="companies/login";
+      URL="company/login";
     }
 
   }
@@ -77,7 +77,9 @@ const SignUp = ({open,setOpen,isRegister,setIsRegister}) => {
    else{
     setErrMsg("");
     const data={token:res?.token,...res?.user};
+    console.log(data);
     dispatch(Login(data));
+    console.log("gggggggggggggggggggggg")
     localStorage.setItem("userInfo",JSON.stringify(data));
     window.location.replace(from);
     console.log(data);
