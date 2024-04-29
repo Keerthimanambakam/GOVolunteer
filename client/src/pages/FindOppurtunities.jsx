@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import {useLocation,useNavigate} from 'react-router-dom';
 
 import { TbNetwork } from "react-icons/tb";
@@ -7,7 +7,11 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FaPagelines } from "react-icons/fa";
 
 import {experience,jobTypes,jobs} from "../utils/data"
-import { Background,CustomButton, List,JobCard } from '../components';
+import { Background,CustomButton, List,JobCard,Loading } from '../components';
+
+import { updateURL,apiRequest } from '../utils';
+
+
 
 
 
@@ -20,14 +24,48 @@ const FindOppurtunities = () => {
 
     const [filterJobTypes, setFilterJobTypes] = useState([]);
     const [filterExp, setFilterExp] = useState([]);
+    const [expVal,setExpVal]=useState([]);
 
     const [sort, setSort] = useState("Newest");
 
-
+    const [data,setData]=useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [page, setPage] = useState(1);
     const [numPage, setNumPage] = useState(1);
+    const [recordCount,setRecordCount]=useState(0)
+  
+    const fetchJobs = async() => {
+      setIsFetching(true);
+      const newURL=updateURL({
+        pageNum:page,
+        query:searchQuery,
+        recLoc:jobLocation,
+        sort:sort,
+        navigate:navigate,
+        location:location,
+        jType:filterJobTypes,
+        exp:filterExp,
+      });
 
+      try{
+        
+        const res=await apiRequest({
+          url:"/jobs"+newURL,
+          method:"GET",
+        })
+        console.log("responseeee",res)
+        setNumPage(res?.numOfPage);
+        setRecordCount(res?.totalJobs);
+        setData(res?.data);
+
+        setIsFetching(false);
+
+      }catch(e){
+        setIsFetching(false);
+        console.log(e);
+      }
+
+  }
 
 
     const filterJobs = (val) => {
@@ -40,8 +78,42 @@ const FindOppurtunities = () => {
 
 
     const filterExperience = async (e) => {
+      if(expVal?.includes(e)){
+        setExpVal(expVal?.filter((el)=>el!=e));
+      }else{
+          setExpVal([...expVal,e])
+      }
     setFilterExp(e);
   };
+
+  const handleSearchSubmit = async(e) => {
+   e.preventDefault();
+  await fetchJobs();
+  };
+
+  const handleShowMore=async(e)=>{
+   e.preventDefault();
+   console.log("paggeeebefore",page);
+   setPage((prev)=>(prev+1));
+   await fetchJobs();
+   console.log("paggeee",page);
+  }
+
+   useEffect(()=>{
+     if(expVal.length>0)
+     {
+      let newExpVal=[];
+      console.log("expvalue",expVal)
+      expVal?.map((el)=>{
+        console.log("vall",el)
+        const newEl=el?.split("-");
+        newExpVal.push(Number(newEl[0]),Number(newEl[1]))
+      });
+      newExpVal?.sort((a,b)=>a-b);
+      setFilterExp(`${newExpVal[0]}-${newExpVal[newExpVal?.length]}`)
+     }
+     },[expVal]);
+
 
  return(
   <div>
@@ -55,7 +127,7 @@ const FindOppurtunities = () => {
 
      </div>
 
-    <Background type='home' title='When Humanity meets Technology'  handleClick={() => {}} searchQuery={searchQuery}
+    <Background type='home' title='When Humanity meets Technology'  handleClick={handleSearchSubmit} searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         location={jobLocation}
         setLocation={setJobLocation}/>
@@ -135,7 +207,8 @@ const FindOppurtunities = () => {
             <div className='flex items-center justify-between mb-4'>
 
               <p className='text-sm md:text-base'>
-                Showing Oppurtunities Available
+                Showing Oppurtunities Available: 
+                <span className='font-semibold'>{recordCount}</span>
               </p>
 
               <div className='flex flex-col md:flex-row gap-0 md:gap-2 md:items-center realtive z-20'>
@@ -148,14 +221,30 @@ const FindOppurtunities = () => {
             </div>
             
             <div className='w-full flex flex-wrap gap-6 relative z-10'>
-            {jobs.map((job, index) => (
-              <JobCard job={job} key={index} />
-            ))}
+            {data.map((job, index) => { 
+              const newJob={
+                name:job?.company.name,
+                logo:job?.company.profileUrl,
+                ...job,
+              };
+              return <JobCard job={newJob} key={index} />
+            }
+            )}
             </div>
 
+            {
+              isFetching &&(
+                <div className='py-10'>
+                  <Loading/>
+                </div>
+              )
+            }
+             
+            {console.log(numPage,page)} 
             {numPage > page && !isFetching && (
             <div className='w-full flex items-center justify-center pt-16'>
               <CustomButton
+                onClick={handleShowMore}
                 title='Load More'
                 containerStyles={`text-blue-600 py-1.5 px-5 focus:outline-none hover:bg-blue-700 hover:text-white rounded-full text-base border border-blue-600`}
               />

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{Schema} from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
@@ -29,15 +29,13 @@ const companySchema =new mongoose.Schema({
         minlength: [6, "Password length should be greater than 6 character"],
         select: true,
     },
-    accountType: { type: String, default: "recruiter" },
-    contact: { type: String },
+    
     location: { type: String },
     profileUrl: { type: String },
-    cvUrl: { type: String },
-    jobTitle: { type: String },
     about: { type: String },
+    jobPosts:[{ type: Schema.Types.ObjectId, ref: "Jobs" }]
    },
-    { timestamps: true }
+    
 );
 
 companySchema.pre('save',async function(){
@@ -57,6 +55,6 @@ companySchema.methods.createJWT = function () {
   });
 };
 
-const company=mongoose.model('company',companySchema);
+const Companies=mongoose.model('Companies',companySchema);
 
-export default company;
+export default Companies;

@@ -7,8 +7,8 @@ const JobCard = ({job}) => {
   console.log(job)
   return (
       
-     <Link to={`/oppurtunity-detail/${job?.id}`}>
-
+     <Link to={`/oppurtunity-detail/${job?._id}`}>
+        {console.log("myyyyjooobbb",job)}
         <div className='w-full md:w-[16rem] 2xl:w-[18rem] h-[16rem] md:h-[18rem] mt-6 bg-columbia_blue flex flex-col border border-paynes_gray justify-between shadow-lg rounded-md px-3 py-5 hover:transition-all hover:mt-2 hover:shadow-2xl'
         >
           <div className='w-full h-full flex flex-col justify-between'>
@@ -30,7 +30,7 @@ const JobCard = ({job}) => {
                </div>
 
             </div>
-
+            {console.log(job)}
             <div className='py-3'>
                 <p className='text-sm'>
                     {job?.desc?.slice(0, 150) + "..."}

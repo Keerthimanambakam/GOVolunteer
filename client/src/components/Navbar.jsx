@@ -36,7 +36,9 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link to='/upload-oppurtunity'>Upload Oppurtunity
+          <Link to={user?.accountType==="volunteer"?"/applications":'/upload-oppurtunity'}>{
+            user?.accountType==="volunteer"?"Applications":"Upload Oppurtunity"
+          }
           </Link>
         </li>
         <li>
@@ -92,10 +94,10 @@ const Navbar = () => {
           <Link
             onClick={handleCloseNavbar}
             to={
-              user?.accountType === "seeker" ? "applly-gistory" : "upload-oppurtunity"
+              user?.accountType === "volunteer" ? "applications" : "upload-oppurtunity"
             }
           >
-            {user?.accountType === "seeker" ? "Applications" : "Upload Opurtunity"}
+            {user?.accountType === "volunteer" ? "Applications" : "Upload Opurtunity"}
           </Link>
           <Link to='/about-us' onClick={handleCloseNavbar}>
             About

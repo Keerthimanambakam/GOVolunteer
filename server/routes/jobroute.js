@@ -1,18 +1,19 @@
-
-
 import express from "express";
 import jobController from '../controllers/jobController.js';
+import userAuth from "../middleware/authMiddleware.js";
+
+
 
 const router = express.Router();
 4
-router.get('/', jobController.showAllJobs);
+router.get('/find-oppurtunities', jobController.showAllJobs);
 
-router.get('/:id', jobController.showJob);
+router.get('/get-job/:id', jobController.showJob);
 
-router.post('/', jobController.createJob);
+router.post("/upload-job", userAuth, jobController.createJob);
 
-router.patch('/:id', jobController.updateJob);
+router.put("/update-job/:jobId", userAuth, jobController.updateJob);
 
-router.delete('/:id', jobController.deleteJob);
+router.delete('/delete-job/:id', userAuth,jobController.deleteJob);
 
 export default router;

@@ -1,20 +1,16 @@
-import mongoose from "mongoose"
+import mongoose,{Schema} from "mongoose"
+
 const jobSchema = new mongoose.Schema({
-    userId: {
-      type: String,
-      ref: 'User',
-      required: true
-    },
+     company: { type: Schema.Types.ObjectId, ref: "Companies" },
     jobTitle: {
       type: String,
       required: true
     },
     jobType: {
       type: String,
-      enum: ['Full-time', 'Part-time', 'Contract', 'Freelance'],
       required: true
     },
-    salaryUSD: {
+    salary: {
       type: Number,
       default:0
     },
@@ -22,24 +18,22 @@ const jobSchema = new mongoose.Schema({
       type: Number,
       default:0
     },
-    yearsOfExperience: {
+    experience: {
       type: Number,
       default:0
     },
-    workLocation: {
+    location: {
       type: String,
       required: true
     },
-    workDescription: {
-      type: String,
-      required: true
-    }
+    desc: { type: String,
+    requires:true },
   }, {
     timestamps: true
   });
   
 
-const JobCard = mongoose.model('JobCard', jobSchema);
+const Jobs = mongoose.model("Jobs", jobSchema);
 
-export default JobCard;
+export default Jobs;
 

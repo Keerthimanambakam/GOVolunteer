@@ -20,16 +20,20 @@ const MenuList = ({user,onClick}) => {
             <div className='flex'>
               <Menu.Button className="inline-flex gap-2 w-full rounded-md bg-dutch_white md:px-4 py-2 text-sm font-medium text-burnt_seinna hover:bg-opacity-20">
                 <div className="hidden lg:leading[80px] lg:flex flex-col items-end">
+                  {console.log(user.name)}
                     <p className="text-sm font-semibold">
-                        {user?.firstName ?? user?.name}
                     </p>
                     <span className="text-sm text-persian_orange">
                         {user?.jobTitle ?? user?.email}
                     </span>
 
                 </div>
-
-                <img src={user?.profileUrl} alt='user profile' className='w-10 h-10 rounded-full object-cover'/>
+                {  console.log("khhhh",localStorage.userInfo)
+}
+                {console.log("ppppppp",user,user.profileUrl)}
+                
+                
+                <img src={user?.profileUrl??<CgProfile />} alt='profile' className='w-10 h-10 rounded-full object-cover'/>
 
                 <BiChevronDown
               className='h-8 w-8 text-slate-600'

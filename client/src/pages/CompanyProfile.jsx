@@ -63,7 +63,8 @@ const CompanyForm = ({ open, setOpen }) => {
         }
         else{
           setErrMsg("success");
-          dispatch(Login(data));
+          const newData={token:res?.token,...res.user}
+          dispatch(Login(newData));
           localStorage.setItem("userInfo",JSON.stringify(newData));
           
           setTimeout(()=>{

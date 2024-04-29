@@ -34,7 +34,7 @@ const UploadOppurtunity = () => {
           data:newData,
           method:"POST",
         })
-        console.log("job upload failed")
+        console.log("jobv",res.job)
         if(res.status=="failed")
         {
           setErrMsg({...res});

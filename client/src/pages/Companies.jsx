@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { CompanyCard, CustomButton, Background, List } from "../components";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { CompanyCard, CustomButton, Background, List,Loading } from "../components";
 import { companies } from "../utils/data";
+import { apiRequest, updateURL } from "../utils";
 
 const Companies = () => {
 
   const [page, setPage] = useState(1);
   const [numPage, setNumPage] = useState(1);
   const [recordsCount, setRecordsCount] = useState(0);
-  const [data, setData] = useState(companies ?? []);
+  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [recLocation, setRecLocation] = useState("");
   const [sort, setSort] = useState("Newest");
@@ -17,8 +18,48 @@ const Companies = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleSearchSubmit = () => {};
-  const handleShowMore = () => {};
+  const fetchCompanies = async() => {
+    setIsFetching(true);
+    const newURL=updateURL({
+      pageNum:page,
+      query:searchQuery,
+      recLoc:recLocation,
+      sort:sort,
+      navigate:navigate,
+      location:location,
+    });
+    console.log("neww url",newURL)
+    try{
+       
+      const res=await apiRequest({
+        url:newURL,
+        method:"GET",
+      })
+      
+      setNumPage(res?.numofPage);
+      setRecordsCount(res?.total);
+      setData(res?.data);
+
+      setIsFetching(false);
+
+    }catch(e){
+      console.log(e);
+    }
+
+  }
+
+  const handleSearchSubmit = async(e) => {
+   e.preventDefault();
+  await fetchCompanies();
+  };
+  const handleShowMore = async(e) => { 
+    e.preventDefault();
+   setPage((prev)=>prev+1);
+  };
+
+  useEffect(()=>{
+    fetchCompanies();
+  },[page,sort]);
 
   return (
      <div className='w-full bg-alice_blue'>
@@ -39,14 +80,14 @@ const Companies = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         location={recLocation}
-        setLocation={setSearchQuery}
+        setLocation={setRecLocation}
       />
 
       <div className='container mx-auto flex flex-col gap-5 2xl:gap-10 px-5 md:px-0 py-6 bg-alice_blue'>
 
          <div className='flex items-center justify-between mb-4'>
             <p className='text-sm md:text-base'>
-            Shwoing: <span className='font-semibold'>10</span> 
+            Shwoing: <span className='font-semibold'>{recordsCount}</span> {" "}
             Recruiters
             </p>
 
@@ -55,7 +96,7 @@ const Companies = () => {
               <p className='text-sm md:text-base'>Sort By:</p>
 
               <List sort={sort} setSort={setSort} />
-
+              
             </div>
 
          </div>

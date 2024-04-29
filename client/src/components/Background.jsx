@@ -72,7 +72,7 @@ const Background = ({type,
 
             <div className='w-3/4 sm:w-1/2 flex items-center justify-around bg-white px-2 md:px-5 sm:py-3 shadow-2xl rounded-full'>
             <Search
-              placeholder='Job Title'
+              placeholder='name'
               icon={<AiOutlineSearch className='text-gray-600 text-xl' />}
               value={searchQuery}
               setValue={setSearchQuery}

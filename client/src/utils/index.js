@@ -54,6 +54,10 @@ export const updateURL=({pageNum,query,recLoc,sort,navigate,location,jType,exp})
     {
         params.set("search",query)
     }
+    if(pageNum)
+    {
+        params.set("page",pageNum)
+    }
     if(recLoc)
     {
         params.set("location",recLoc);
@@ -65,6 +69,10 @@ export const updateURL=({pageNum,query,recLoc,sort,navigate,location,jType,exp})
     if(exp)
     {
         params.set("exp",exp);
+    }
+    if(sort)
+    {
+        params.set("sort",sort)
     }
 
     const newURL=`${location.pathname}?${params.toString()}`;

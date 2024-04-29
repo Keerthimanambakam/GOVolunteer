@@ -2,19 +2,70 @@ import React from 'react'
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { jobs } from "../utils/data";
-import { CustomButton, JobCard } from "../components";
+import { CustomButton, JobCard, Loading } from "../components";
+import { useSelector } from 'react-redux';
+import { apiRequest } from '../utils';
+import { Listbox } from '@headlessui/react';
 
 
 const OppurtunityDetail = () => {
-  const params = useParams();
-  const id = parseInt(params.id) - 1;
-  const [job, setJob] = useState(jobs[0]);
+  const {id} = useParams();
+  const {user}=useSelector((state)=>state.user)
+
+  const [job, setJob] = useState(null);
+  const [similarJobs,setSimilarJobs]=useState([]);
   const [selected, setSelected] = useState("0");
+  const [isFetching,setIsFetching]=useState(false);
+
+   const apply_url="/apply-oppurtunity/"+job?._id
+  const getJobDetails=async()=>{
+    setIsFetching(true);
+    try{
+      const res=await apiRequest({
+        url:"/jobs/get-job/"+id,
+        method:"GET"
+      });
+      
+      setJob(res.data);
+      setSimilarJobs(res?.similarJobs);
+      setIsFetching(false);
+
+    }catch(e){
+      setIsFetching(false)
+      console.log(e);
+    }
+  }
+
+  
+
+  const handleDeletePost=async()=>{
+    console.log("deleteee youuu")
+    setIsFetching(true);
+    try{
+    if(window.confirm("Delete Job Post?")){
+      const res=await apiRequest({
+      url:"/jobs/delete-job/"+job?._id,
+      token: user?.token,
+      method:"DELETE"
+        
+    });
+     setIsFetching(False)
+    }
+    if(res?.success){
+      alert(res?.message);
+      window.location.replace("/");
+    }
+
+    }catch(e){
+      setIsFetching(false);
+      console.log(e);
+    }
+  }
 
   useEffect(() => {
-    setJob(jobs[id ?? 0]);
+    id&& getJobDetails();
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [id]);
 
@@ -23,7 +74,10 @@ const OppurtunityDetail = () => {
 
       <div className='w-full flex flex-col md:flex-row gap-6'>
 
-        <div className='w-full h-fit md:w-2/3 2xl:2/4 bg-alice_blue px-5 py-10 md:px-10 shadow-md mt-2 sm:ml-4'>
+        {isFetching?(
+          <Loading/>
+        ):(
+          <div className='w-full h-fit md:w-2/3 2xl:2/4 bg-alice_blue px-5 py-10 md:px-10 shadow-md mt-2 sm:ml-4'>
 
           <div className='w-full flex py-6 sm:pt-11 items-center justify-between'>
 
@@ -85,7 +139,7 @@ const OppurtunityDetail = () => {
 
               <span className='text-sm'>No. of Applicants</span>
               <p className='text-lg font-semibold text-gray-700'>
-                {job?.applicants?.length}K
+                {job?.application?.length??0}
               </p>
 
              </div>
@@ -98,6 +152,15 @@ const OppurtunityDetail = () => {
               </p>
 
             </div>
+
+             <div className='bg-[#fed0ab] w-40 h-16 px-6 rounded-lg flex flex-col items-center justify-center'>
+
+              <span className='text-sm'>No. of Experience</span>
+              <p className='text-lg font-semibold text-gray-700'>
+                {job?.experience}
+              </p>
+
+             </div>
 
 
           </div>
@@ -132,16 +195,8 @@ const OppurtunityDetail = () => {
               <>
                 <p className='text-xl font-semibold'>Job Decsription</p>
 
-                <span className='text-base'>{job?.detail[0]?.desc}</span>
+                <span className='text-base'>{job?.desc}</span>
 
-                {job?.detail[0]?.requirement && (
-                  <>
-                    <p className='text-xl font-semibold mt-8'>Requirement</p>
-                    <span className='text-base'>
-                      {job?.detail[0]?.requirement}
-                    </span>
-                  </>
-                )}
               </>
             ) : (
               <>
@@ -161,23 +216,46 @@ const OppurtunityDetail = () => {
           </div>
            
           <div className='w-full'>
-            <CustomButton
+            {user?._id===job?.company?._id?(<CustomButton
+              title='Delete Post'
+              onclick={handleDeletePost()}
+              containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
+            />):(
+              <>
+             
+              <Link to='/apply-oppurtunity' >
+                <CustomButton
               title='Apply Now'
               containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
-            />
+             />
+              </Link>
+              
+              </>
+              
+
+             
+              )
+            }
           </div>
 
 
         </div>
+        )}
         
         <div className='w-full md:w-1/3 2xl:w-2/4 p-5 mt-20 md:mt-0 bg-white'>
 
           <p className='text-gray-500 font-semibold'>Similar Oppurtunities</p>
 
           <div className='w-full flex flex-wrap gap-3'>
-            {jobs?.slice(0, 6).map((job, index) => (
-              <JobCard job={job} key={index} />
-            ))}
+            {similarJobs?.slice(0, 6).map((job, index) =>{ 
+              
+              const data={
+                name:job?.company.name,
+                logo:job?.company.profileUrl,
+                ...job,
+              };
+              return <JobCard job={data} key={index} />
+            })}
           </div>
 
         </div>
