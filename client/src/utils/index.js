@@ -8,8 +8,8 @@ export const API=axios.create({
 });
 
 export const apiRequest=async({url,token,data,method})=>{
+    console.log("dataaa",data)
    try{
-     
        const response=await API(url,{
         method:method || "GET",
         data:data,
@@ -47,7 +47,7 @@ export const handleFileUpload=async(uploadFile)=>{
     }
 };
 
-export const updateURL=({pageNum,query,recLoc,sort,navigate,location,jType,exp})=>{
+export const updateURL=({pageNum,query,recLoc,sort,navigate,location,jType,jTitle,exp})=>{
     const params=new URLSearchParams();
 
     if(query)
@@ -61,6 +61,10 @@ export const updateURL=({pageNum,query,recLoc,sort,navigate,location,jType,exp})
     if(recLoc)
     {
         params.set("location",recLoc);
+    }
+    if(jTitle)
+    {
+        params.set("jTitle",jTitle);
     }
     if(jType)
     {

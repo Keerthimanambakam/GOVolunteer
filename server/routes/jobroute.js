@@ -5,6 +5,8 @@ import userAuth from "../middleware/authMiddleware.js";
 
 
 const router = express.Router();
+
+router.post('/',jobController.showApplications);
 4
 router.get('/find-oppurtunities', jobController.showAllJobs);
 

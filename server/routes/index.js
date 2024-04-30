@@ -13,6 +13,7 @@ router.use(path+"auth", authRoute);
 router.use(path+"company", companyRoute); 
 router.use(path+"companies", companyRoute); 
 router.use(path+"jobs", jobRoute); 
+router.use(path+"applications", jobRoute); 
 router.use(path+"user", userRoute);
 
 export default router;

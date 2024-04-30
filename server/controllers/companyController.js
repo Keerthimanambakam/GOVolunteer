@@ -130,6 +130,9 @@ const showAllComapanies = async (req, res, next) => {
 
     let queryResult = Companies.find(queryObject).select("-password");
 
+    console.log("hiiii",queryResult)
+
+
     if (sort === "Newest") {
       queryResult = queryResult.sort("-createdAt");
     }
@@ -151,8 +154,10 @@ const showAllComapanies = async (req, res, next) => {
     const total = await Companies.countDocuments(queryResult);
     const numOfPage = Math.ceil(total / limit);
     
+
     queryResult = queryResult.limit(limit * page);
 
+    
     const companies = await queryResult;
 
     res.status(200).json({

@@ -361,6 +361,73 @@ const deleteJob= async (req, res, next) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+const showApplications=async(req,res,next)=>{
+  try {
+   console.log("khyaaa",req.body)
+    const { location, sort, jTitle } = req.query;
+
+    console.log("whooo",jTitle,location);
+    const user_id = req.body._id;
+    const queryObject = {};
+
+    if (jTitle) {
+      queryObject.jobTitle = { $regex: jTitle, $options: "i" };
+    }
+
+    if (location) {
+      queryObject.location = { $regex: location, $options: "i" };
+    }
+    
+    const user = await Users.findById(user_id);
+  
+    const jobs=user.appliedJobs.slice(1)
+     
+    
+    let queryResult=Jobs.find({...queryObject,_id:{$in:jobs}});
+    
+    console.log("finalll")
+
+    if (sort === "Newest") {
+      queryResult = queryResult.sort("-createdAt");
+    }
+    if (sort === "Oldest") {
+      queryResult = queryResult.sort("createdAt");
+    }
+    if (sort === "A-Z") {
+      queryResult = queryResult.sort("jobTitle");
+    }
+    if (sort === "Z-A") {
+      queryResult = queryResult.sort("-jobTitle");
+    }
+
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+
+    //const skip = (page - 1) * limit;
+
+    const total = jobs.length;
+    const numOfPage = Math.ceil(total / limit);
+    
+    queryResult = queryResult.limit(limit * page);
+
+    console.log("hiiiii",queryResult)
+    const applications = await queryResult;
+    
+    console.log("yahooo")
+    
+
+    res.status(200).json({
+      success: true,
+      total,
+      data: applications,
+      page,
+      numOfPage,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
     
 export default {
         showAllJobs,
@@ -368,5 +435,6 @@ export default {
         createJob,
         updateJob,
         deleteJob,
-        applyJob
+        applyJob,
+        showApplications
 };
