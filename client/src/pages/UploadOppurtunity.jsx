@@ -74,7 +74,7 @@ const UploadOppurtunity = () => {
   },[])
 
   return (
-    <div className='w-full bg-paynes_gray'>
+    <div className='w-full bg-alice_blue'>
     <div className='container mx-auto flex flex-col md:flex-row gap-8 2xl:gap-14 px-5'
     >
       <div className='w-full h-fit md:w-2/3 2xl:2/4 bg-slate-200 px-5 py-10 md:px-10 shadow-md mt-8'>

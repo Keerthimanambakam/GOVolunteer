@@ -8,9 +8,10 @@ import { CustomButton, JobCard, Loading } from "../components";
 import { useSelector } from 'react-redux';
 import { apiRequest } from '../utils';
 import { Listbox } from '@headlessui/react';
-
+import { useLocation } from 'react-router-dom';
 
 const OppurtunityDetail = () => {
+  const location=useLocation()
   const {id} = useParams();
   const {user}=useSelector((state)=>state.user)
 
@@ -225,7 +226,8 @@ const OppurtunityDetail = () => {
             />):(
               <>
              
-              <Link to='/apply-oppurtunity' >
+               
+              <Link to={'/apply-oppurtunity/'+id} >
                 <CustomButton
               title='Apply Now'
               containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}

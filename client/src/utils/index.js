@@ -9,7 +9,7 @@ export const API=axios.create({
 
 export const apiRequest=async({url,token,data,method})=>{
    try{
-      //console.log("hiii",data)
+     
        const response=await API(url,{
         method:method || "GET",
         data:data,
@@ -22,7 +22,7 @@ export const apiRequest=async({url,token,data,method})=>{
        return response?.data;
    }
    catch(e){
-    //console.log(e);
+  
     const err=e.response.data;
      return {
         status:err.success,message:err.message
@@ -34,7 +34,7 @@ export const handleFileUpload=async(uploadFile)=>{
     const formData=new FormData();
     formData.append("file",uploadFile);
     formData.append("upload_preset","govolunteer");
-
+    console.log("ghhhhhhhhhhhhhh",formData)
     try{
         const response=await axios.post(
             "https://api.cloudinary.com/v1_1/dvdjmc9xb/image/upload/",

@@ -260,6 +260,8 @@ const deleteCompany = async (req, res) => {
 
 const showCompanyById= async (req, res, next) => {
   try {
+    console.log("yoooopp",req.body)
+    console.log("yoooopp",req.params)
     const { id } = req.params;
     console.log("khkh")
     const company = await Companies.findById({ _id: id }).populate({

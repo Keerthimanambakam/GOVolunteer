@@ -2,6 +2,7 @@
 import Jobs from "../models/jobsModel.js"
 import mongoose from "mongoose";
 import Companies from "../models/companiesModel.js";
+import Users from "../models/userModel.js"
 // Controller function to show all jobs
 const showAllJobs = async (req, res) => {
   try {
@@ -214,6 +215,82 @@ const createJob = async (req, res,next) => {
   
 };
 
+const applyJob=async(req,res,next)=>{
+  try {
+    console.log(req.body);
+    const {
+      name,
+      email,
+      number,
+      cvUrl,
+      desc,
+      job_id
+    } = req.body;
+
+    if (!name){
+        next("Please Provide name");
+      }
+    if(!email){
+        next("Please Provide email");
+      }
+    if(!number){
+        next("Please Provide number");
+      }
+    
+
+    const user_id = req.body.user.userId;
+
+    
+   if (!mongoose.Types.ObjectId.isValid(user_id))
+      return res.status(404).send(`No user with id: ${user_id}`);
+    
+
+    const user = await Users.findById(user_id);
+
+    console.log("userr",user)
+
+    user.appliedJobs.push(job_id);
+    if(cvUrl!=undefined){
+      user.cvUrl=cvUrl;
+    }
+    
+    if(desc!=undefined)
+    {
+     user.desc=desc;
+    }
+    
+
+    const updateUser = await Users.findByIdAndUpdate(user_id, user, {
+      new: true,
+    });
+
+    console.log("jobiidd",job_id)
+
+    const job = await Jobs.findById(job_id);
+
+    console.log("jobsss",job)
+
+    job.applicants.push(user_id);
+
+    const updateJob = await Jobs.findByIdAndUpdate(job_id, job, {
+      new: true,
+    });
+ 
+    console.log("hiiiiiiii")
+
+    res.status(200).json({
+      success: true,
+      message: "Oppurtunity Applied Successfully",
+      job,
+    });
+
+  }catch(e){
+    console.log(e);
+    console.log("thiss errorr")
+    res.status(404).json({ message: e.message });
+  }
+
+}
 // Controller function to update a job
 const updateJob = async (req, res,next) => {
   try {
@@ -290,5 +367,6 @@ export default {
         showJob,
         createJob,
         updateJob,
-        deleteJob
+        deleteJob,
+        applyJob
 };

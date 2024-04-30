@@ -33,7 +33,7 @@ const userSchema=new mongoose.Schema({
     location: { type: String },
     profileUrl: { type: String },
     cvUrl: { type: String },
-    about: { type: String },
+    desc: { type: String },
     feedback:[{type: Schema.Types.ObjectId, ref: "Jobs" }],
     appliedJobs:[{ type: Schema.Types.ObjectId, ref: "Jobs" }]
    },

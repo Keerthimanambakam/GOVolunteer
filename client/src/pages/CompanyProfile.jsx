@@ -22,6 +22,7 @@ import { Login } from "../redux/userSlice";
 }*/
 const CompanyForm = ({ open, setOpen }) => {
  const { user } = useSelector((state) => state.user);
+ console.log("khyyyyyy",user)
   const {
     register,
     handleSubmit,
@@ -43,6 +44,8 @@ const CompanyForm = ({ open, setOpen }) => {
     setIsLoading(true);
     setErrMsg(null)
 
+    console.log("huhuhuhhuhuhhu")
+
     const uri=profileImage && (await handleFileUpload(profileImage));
 
     const newData=uri?{...data,profileUrl:uri}:data;
@@ -55,7 +58,7 @@ const CompanyForm = ({ open, setOpen }) => {
           data:newData,
           method:"PUT",
         })
-
+        console.log("nrwww ",res.user)
         setIsLoading(false);
         if(res.status=="failed")
         {
@@ -63,7 +66,8 @@ const CompanyForm = ({ open, setOpen }) => {
         }
         else{
           setErrMsg("success");
-          const newData={token:res?.token,...res.user}
+          const newData={token:res?.token,...res.company}
+          console.log("nrwww ",res)
           dispatch(Login(newData));
           localStorage.setItem("userInfo",JSON.stringify(newData));
           
@@ -83,7 +87,8 @@ const CompanyForm = ({ open, setOpen }) => {
 
  const closeModal = () => {
   setOpen(false);
-  console.log(from);
+  //console.log("frommm",from);
+  window.location.reload();
  };
 
   console.log(open);
@@ -222,6 +227,7 @@ const CompanyProfile = () => {
   const params = useParams();
   const location=useLocation();
   const { user } = useSelector((state) => state.user);
+  console.log("justttyygbj",user)
   const [info, setInfo] = useState(user);
   const [isLoading, setIsLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
@@ -237,6 +243,7 @@ const CompanyProfile = () => {
     else{
       id=user?._id;
     }
+    console.log("idd,",user,id)
 
    try{
       const res=await apiRequest({

@@ -12,6 +12,8 @@ router.get('/get-job/:id', jobController.showJob);
 
 router.post("/upload-job", userAuth, jobController.createJob);
 
+router.post("/apply-job", userAuth, jobController.applyJob);
+
 router.put("/update-job/:jobId", userAuth, jobController.updateJob);
 
 router.delete('/delete-job/:id', userAuth,jobController.deleteJob);

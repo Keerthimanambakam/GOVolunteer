@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 
 import {Footer, Navbar} from "./components";
 
-import {FindOppurtunities,Companies,CompanyProfile,UploadOppurtunity,OppurtunityDetail,UserProfile,About,AuthPage} from "./pages";
+import {FindOppurtunities,Companies,CompanyProfile,UploadOppurtunity,OppurtunityDetail,UserProfile,About,AuthPage, Applications, ApplyOppurtunity} from "./pages";
 import { useSelector } from 'react-redux';
 
 function Layout()
@@ -42,7 +42,9 @@ function App() {
           <Route path='/company-profile/:id' element={<CompanyProfile />}/>
           <Route path='/upload-oppurtunity' element={<UploadOppurtunity />}/>
           <Route path='/oppurtunity-detail/:id' element={<OppurtunityDetail />}/>
-
+          <Route path='/apply-oppurtunity/:id' element={<ApplyOppurtunity/>}/>
+          <Route path='/applications' element={<Applications />}/>
+          
         </Route>
 
         <Route path='/about-us' element={<About />}/>
