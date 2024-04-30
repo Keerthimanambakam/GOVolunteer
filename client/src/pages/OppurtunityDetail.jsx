@@ -19,7 +19,7 @@ const OppurtunityDetail = () => {
   const [selected, setSelected] = useState("0");
   const [isFetching,setIsFetching]=useState(false);
 
-   const apply_url="/apply-oppurtunity/"+job?._id
+
   const getJobDetails=async()=>{
     setIsFetching(true);
     try{
@@ -49,15 +49,17 @@ const OppurtunityDetail = () => {
       url:"/jobs/delete-job/"+job?._id,
       token: user?.token,
       method:"DELETE"
-        
     });
-     setIsFetching(False)
-    }
+     
+    
     if(res?.success){
-      alert(res?.message);
+      console.log("deleteeee")
+      alert("post deleted");
       window.location.replace("/");
-    }
 
+    }
+    setIsFetching(false)
+  }
     }catch(e){
       setIsFetching(false);
       console.log(e);
@@ -218,7 +220,7 @@ const OppurtunityDetail = () => {
           <div className='w-full'>
             {user?._id===job?.company?._id?(<CustomButton
               title='Delete Post'
-              onclick={handleDeletePost()}
+              onClick={handleDeletePost}
               containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
             />):(
               <>

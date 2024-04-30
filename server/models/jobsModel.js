@@ -1,7 +1,7 @@
 import mongoose,{Schema} from "mongoose"
 
 const jobSchema = new mongoose.Schema({
-     company: { type: Schema.Types.ObjectId, ref: "Companies" },
+    company: { type: Schema.Types.ObjectId, ref: "Companies" },
     jobTitle: {
       type: String,
       required: true
@@ -18,6 +18,10 @@ const jobSchema = new mongoose.Schema({
       type: Number,
       default:0
     },
+    deadline:{
+      type:Date,
+    },
+    status:{type:Boolean},
     experience: {
       type: Number,
       default:0
@@ -28,6 +32,7 @@ const jobSchema = new mongoose.Schema({
     },
     desc: { type: String,
     requires:true },
+    applicants:[{type: Schema.Types.ObjectId, ref: "Users" }]
   }, {
     timestamps: true
   });

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{Schema} from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
@@ -30,12 +30,12 @@ const userSchema=new mongoose.Schema({
         select: true,
     },
     accountType: { type: String, default: "volunteer" },
-    contact: { type: String },
     location: { type: String },
     profileUrl: { type: String },
     cvUrl: { type: String },
-    jobTitle: { type: String },
     about: { type: String },
+    feedback:[{type: Schema.Types.ObjectId, ref: "Jobs" }],
+    appliedJobs:[{ type: Schema.Types.ObjectId, ref: "Jobs" }]
    },
     { timestamps: true }
 );
