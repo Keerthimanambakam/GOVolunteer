@@ -19,7 +19,20 @@ const OppurtunityDetail = () => {
   const [similarJobs,setSimilarJobs]=useState([]);
   const [selected, setSelected] = useState("0");
   const [isFetching,setIsFetching]=useState(false);
+  const [isApplied,setIsApplied]=useState(false)
 
+  const getIsApplied=async()=>{
+    try{
+      const res=await apiRequest({
+        url:"/jobs/is-applied/"+id,
+        method:"GET"
+      });
+      setIsApplied(res.stat);
+
+  }catch(e){
+    console.log(e);
+  }
+}
 
   const getJobDetails=async()=>{
     setIsFetching(true);
@@ -219,21 +232,23 @@ const OppurtunityDetail = () => {
           </div>
            
           <div className='w-full'>
-            {user?._id===job?.company?._id?(<CustomButton
-              title='Delete Post'
-              onClick={handleDeletePost}
-              containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
-            />):(
+            {user?._id===job?.company?._id?  (<CustomButton
+                title='Delete Post'
+                onClick={handleDeletePost}
+                containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
+              />):(
               <>
              
-               
+              {user?.accountType=="volunteer"?(
+            
               <Link to={'/apply-oppurtunity/'+id} >
                 <CustomButton
               title='Apply Now'
               containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
              />
-              </Link>
+              </Link>):("")}
               
+    
               </>
               
 
@@ -271,4 +286,4 @@ const OppurtunityDetail = () => {
   )
 }
 
-export default OppurtunityDetail;
+export default OppurtunityDetail

@@ -42,6 +42,7 @@ const Applications = () => {
       
       setNumPage(res?.numofPage);
       setRecordsCount(res?.total);
+      console.log("Dtaaaa",res.data)
       setData(res?.data);
 
       setIsFetching(false);

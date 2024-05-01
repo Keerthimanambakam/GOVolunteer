@@ -380,8 +380,9 @@ const showApplications=async(req,res,next)=>{
     }
     
     const user = await Users.findById(user_id);
+
   
-    const jobs=user.appliedJobs.slice(1)
+    const jobs=user.appliedJobs
      
     
     let queryResult=Jobs.find({...queryObject,_id:{$in:jobs}});
@@ -416,6 +417,7 @@ const showApplications=async(req,res,next)=>{
     
     console.log("yahooo")
     
+    console.log()
 
     res.status(200).json({
       success: true,

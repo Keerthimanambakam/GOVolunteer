@@ -130,7 +130,7 @@ const showAllComapanies = async (req, res, next) => {
 
     let queryResult = Companies.find(queryObject).select("-password");
 
-    console.log("hiiii",queryResult)
+    //console.log("hiiii",queryResult)
 
 
     if (sort === "Newest") {
