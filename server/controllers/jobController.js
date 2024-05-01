@@ -430,13 +430,79 @@ const showApplications=async(req,res,next)=>{
     res.status(500).json({ message: err.message });
   }
 }
+
+const withdrawJob=async(req,res,next)=>{
+  try {
+    const { id } = req.params;
+
+    //const job=await Jobs.findById(id);
+    const user_id = req.body._id;
+    const user = await Users.findById(user_id);
+
+    console.log("jobbbid",user.appliedJobs)
+
+    await Jobs.updateOne({ _id: id },{ $pull: { applicants: user_id } } )
+
+    await Users.updateOne( { _id: user_id }, { $pull: { appliedJobs:  id } } )
+    
+
+    
+    const users = await Users.findById(user_id);
+    console.log("jobbbid",users.appliedJobs)
+
+
+
+    //console.log("applicantions",user.appliedJobs);
+
+    res.status(200).send({
+      success: true,
+      messsage: "Application withdraw Successful.",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error.message });
+  }
+}
+
+const isAppliedJob=async(req,res,next)=>{
+  try{
+    console.log("hiii",req.params);
+   const job_id=req.params.id;
+  const user_id = req.body._id;
+  const user = await Users.findById(user_id);
+  const jobs=user.appliedJobs
+  console.log("iddd",job_id)
+  if(jobs.includes(job_id)){
+    console.log("included",job_id)
+    res.status(200).json({
+      success: true,
+      data: true,
+      
+    });
+  }
+  else{
+  res.status(200).json({
+      success: true,
+      data: false,
+    });
+  }
+  
+  }catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+  
+
+
+}
     
 export default {
         showAllJobs,
         showJob,
         createJob,
         updateJob,
+        withdrawJob,
         deleteJob,
         applyJob,
+        isAppliedJob,
         showApplications
 };
