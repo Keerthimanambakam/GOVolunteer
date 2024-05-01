@@ -9,6 +9,6 @@ router.post("/get-user", userAuth, getUser);
 
 router.get("/get-user/:id",showUserById);
 
-router.put("/update-user", userAuth, updateUser);
+router.patch("/update-user/:id", userAuth, updateUser);
 
 export default router;

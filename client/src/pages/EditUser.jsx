@@ -9,20 +9,22 @@ export const EditUser = () => {
         const userToken = localStorage.getItem("userInfo");
         const user_json = JSON.parse(userToken);
         const id = user_json._id;
-        const newURL = "http://localhost:8800/api/user/" + id;
+        const token = user_json.token;
+        const newURL = "http://localhost:8800/api/user/update-user/" + id;
         const data = new FormData(event.target);
         const key = data.get("myDropDown");
         const value = data.get("changed");
         const FormDict = {
-            Key: data.get("myDropDown"),
-            Value: data.get("changed")
+            Key: key,
+            Value: value
         };
         try {
             const res = await fetch(newURL, {
                 method: "PATCH",
                 body: JSON.stringify(FormDict), 
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization":`Bearer ${token}`
                 }
             });
             const data = await res.json();
