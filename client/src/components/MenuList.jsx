@@ -24,6 +24,9 @@ const MenuList = ({user,onClick}) => {
                     <p className="text-sm font-semibold">
                     </p>
                     <span className="text-sm text-persian_orange">
+                        {user?.name}
+                    </span>
+                    <span className="text-sm text-persian_orange">
                         {user?.jobTitle ?? user?.email}
                     </span>
 
