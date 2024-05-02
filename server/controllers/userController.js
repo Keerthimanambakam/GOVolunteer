@@ -25,18 +25,13 @@ export const updateUser = async (req, res, next) => {
   const data = req.body;
   try {
       let user = await Users.findById(req.params.id);
-      console.log(user);
       if (!user) {
           return next(new ErrorResponse(`User not found with id ${req.params.id}`, 404));
       }
-      const updateData = {
-          [data.Key] : data.Value
-      }
-      console.log(updateData)
-      user = await Users.findByIdAndUpdate(id,{$set:updateData},{new:true,runValidators:true})
-      const NewUser = await user.save();
+      user = await Users.findByIdAndUpdate(id,{$set:data},{new:true,runValidators:true})
+      user.password=undefined;
       const token = await user.createJWT(); 
-      return res.status(200).json({user:NewUser,token:token});
+      return res.status(200).json({user:user,token:token});
   } catch (error) {
       return next(error);
   }

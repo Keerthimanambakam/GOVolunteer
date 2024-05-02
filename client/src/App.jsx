@@ -6,6 +6,7 @@ import {Footer, Navbar} from "./components";
 import {FindOppurtunities,Companies,CompanyProfile,UploadOppurtunity,OppurtunityDetail,UserProfile,About,AuthPage, Applications, ApplyOppurtunity} from "./pages";
 import { useSelector } from 'react-redux';
 import { EditUser } from './pages/EditUser';
+import { OTPModal } from './components/OTP';
 
 function Layout()
 {
@@ -52,6 +53,7 @@ function App() {
         <Route path='/user-auth' element={<AuthPage isRegister={isRegister} setIsRegister={setIsRegister} />}/>
          <Route path='/user-login' element={<AuthPage isRegister={isLogin} setIsRegister={setIsLogin}/>}/>
         <Route path="/EditUser" element={<EditUser/>}/>
+        <Route path='/OTP' element={<OTPModal/>}/>
 
       </Routes>
 

@@ -62,21 +62,19 @@ export const register = async (req, res, next) => {
 
 
 export const signIn = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { number, password } = req.body;
   try {
-    if (!email || !password) {
+    if (!number || !password) {
       next("Please Provide User Credentials");
       return;
     }
-    const user = await Users.findOne({ email }).select("+password");
-    console.log(user);
+    const user = await Users.findOne({ number }).select("+password");
     if (!user) {
-      next("Invalid email");
+      next("Invalid Number");
       return;
     }
 
     const confirmPassword = await user.comparePassword(password);
-    console.log(confirmPassword);
 
     if (!confirmPassword) {
       next("Invalid password");
