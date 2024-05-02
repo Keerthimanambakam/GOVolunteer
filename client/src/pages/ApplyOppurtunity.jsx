@@ -62,7 +62,7 @@ const ApplyOppurtunity = () =>{
         else{
           setErrMsg("success");
           setTimeout(()=>{
-          window.location.reload();
+          window.location.replace('/applications');
           },1500);
         }
 

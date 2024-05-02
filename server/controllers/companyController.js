@@ -249,6 +249,7 @@ const updateCompany = async (req, res,next) => {
   }
 };
 
+
 const deleteCompany = async (req, res) => {
     try {
         const Company = await Companies.findById(req.params.id);

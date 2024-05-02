@@ -12,6 +12,8 @@ import { useLocation } from 'react-router-dom';
 
 const OppurtunityDetail = () => {
   const location=useLocation()
+  let from=location.state?.from?.pathname||"/";
+
   const {id} = useParams();
   const {user}=useSelector((state)=>state.user)
 
@@ -25,9 +27,11 @@ const OppurtunityDetail = () => {
     try{
       const res=await apiRequest({
         url:"/jobs/is-applied/"+id,
-        method:"GET"
+        method:"POST",
+        data:user
       });
-      setIsApplied(res.stat);
+      console.log("succceesss",res.data)
+      setIsApplied(res.data);
 
   }catch(e){
     console.log(e);
@@ -52,6 +56,32 @@ const OppurtunityDetail = () => {
     }
   }
 
+  const handleWithdrawPost=async()=>{
+    setIsFetching(true);
+    try{
+    if(window.confirm("Withdraw Oppurtunity?")){
+      const res=await apiRequest({
+      url:"/jobs/withdraw-job/"+job?._id,
+      token: user?.token,
+      method:"POST",
+      data:user
+    });
+     
+    
+    if(res?.success){
+      alert("oppurtunity withdraw successful");
+      //window.location.replace(from);
+      window.location.reload()
+
+    }
+    setIsFetching(false)
+  }
+    }catch(e){
+      setIsFetching(false);
+      console.log(e);
+    }
+
+  }
   
 
   const handleDeletePost=async()=>{
@@ -81,7 +111,7 @@ const OppurtunityDetail = () => {
   }
 
   useEffect(() => {
-    id&& getJobDetails();
+    id&& getJobDetails() && getIsApplied();
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [id]);
 
@@ -240,13 +270,19 @@ const OppurtunityDetail = () => {
               <>
              
               {user?.accountType=="volunteer"?(
-            
-              <Link to={'/apply-oppurtunity/'+id} >
+              (!isApplied)?(<Link to={'/apply-oppurtunity/'+id} >
                 <CustomButton
               title='Apply Now'
               containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
              />
-              </Link>):("")}
+              </Link>):(
+                <CustomButton
+              title='Withdraw Application'
+              onClick={handleWithdrawPost}
+              containerStyles={`w-full flex items-center justify-center text-white bg-black py-3 px-5 outline-none rounded-full text-base`}
+             />
+              )
+              ):("")}
               
     
               </>
