@@ -34,9 +34,9 @@ export const updateUser = async (req, res, next) => {
       }
       console.log(updateData)
       user = await Users.findByIdAndUpdate(id,{$set:updateData},{new:true,runValidators:true})
-      const NewUser = await user.save();
       const token = await user.createJWT(); 
-      return res.status(200).json({user:NewUser,token:token});
+      user.password=undefined
+      return res.status(200).json({user:user,token:token});
   } catch (error) {
       return next(error);
   }

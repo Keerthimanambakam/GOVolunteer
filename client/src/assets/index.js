@@ -14,8 +14,10 @@ import CodeWave from "./codewave.png";
 import Taehyungaesthetic from "./taehyunginparis.png";
 import flowers from "./flowers.jpg"
 import tae from "./taetae.jpeg"
+import main_volunteer from "./main_volunteer.png"
 
 export {
+  main_volunteer,
   CodeWave,
   NoProfile,
   Facebook,

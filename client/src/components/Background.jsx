@@ -3,7 +3,7 @@ import CustomButton from './CustomButton'
 import { popularSearch } from '../utils/data'
 import { AiOutlineSearch, AiOutlineCloseCircle } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
-import { Taehyungaesthetic,tae,flowers } from '../assets';
+import { Taehyungaesthetic,tae,flowers, main_volunteer } from '../assets';
 
 const Search= ({ placeholder, icon, value, setValue, styles }) => {
   const handleChange = (e) => {
@@ -55,7 +55,7 @@ const Background = ({type,
                  
                  <div>
                  <div className="z-20 absolute">
-                    <img className="h-[23rem] w-[18rem] mr-[16rem] rounded-3xl" src={Taehyungaesthetic} alt=""/>
+                    <img className="h-[23rem] w-[18rem] mr-[16rem] rounded-3xl" src={main_volunteer} alt=""/>
                   </div>
                 <div className="z-10 absolute rotate-6 origin-bottom-left">
                     <img className="h-[23rem] w-[18rem] mr-[16rem] rounded-3xl" src={flowers} alt=""/>
